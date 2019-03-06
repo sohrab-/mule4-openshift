@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	
+	<http:listener-config name="apiListenerConfig" doc:name="HTTP Listener config" doc:id="ab6527f1-ee14-441b-a694-654284692564" basePath="/api/v1/somethings" >
+		<http:listener-connection host="0.0.0.0" port="8085" />
+	</http:listener-config>
+	
+	<flow name="somethingsFlow" doc:id="810f7edf-6f1f-4549-bd8b-a88d50617a84" >
+		<http:listener doc:name="Listener" doc:id="02c09875-df76-4879-bcd2-a51d647bb506" config-ref="apiListenerConfig" path="/"/>
+		<logger level="INFO" doc:name="Log Request" doc:id="07744de1-fe51-4538-8a3f-a45368693f62" category="api.sample-app.somethingsFlow.request" message="#[payload]"/>
+		<set-payload value='{ "id": 1 }' mimeType="application/json" doc:name="Set Payload" doc:id="71e801e0-6efa-47e4-825d-eaedd675107d" />
+		<logger level="INFO" doc:name="Log Response" doc:id="c617b224-4b90-4248-9d38-2df542bdb41f" category="api.sample-app.somethingsFlow.response" message="#[payload]"/>
+	</flow>
+</mule>

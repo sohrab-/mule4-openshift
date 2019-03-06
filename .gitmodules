@@ -1,0 +1,3 @@
+[submodule "image/fabric8-java-images"]
+	path = image/fabric8-java-images
+	url = git@github.com:fabric8io-images/java.git

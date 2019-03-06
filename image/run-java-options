@@ -1,0 +1,37 @@
+#!/bin/sh -e
+
+# Translate wrapper config into corresponding Java options
+wrapper_config() {
+  # Cannot in-line these comments so here's their doc:
+  # L1-2: Location of your Mule installation.
+  # L3: Sets IPv4 addresses in order to avoid multicasting issues
+  # L4: Needed to avoid a memory leak on mvel (see MULE-7650)
+  # L5-6: Limit HTTP module send and receive buffers size to 1MB by default to avoid running out of Direct Memory.  To optimize for
+  # L5-6: performance this system property should be removed and direct memory increased as required.
+  # L7-8: Limit the Metaspace Size to protect system memory from unwanted usage
+  # L7-8: Increase this value if you get "Java.lang.OutOfMemoryError: Metaspace" error
+  # L9-12: GC settings
+  # L13: Avoid Quartz update check. See https://jira.terracotta.org/jira/browse/QTZ-29
+  # L14-15: Metadata Cache
+  # L16: Disable JMX for log4j
+  echo \
+    "-Dmule.home=${MULE_HOME}" \
+    "-Dmule.base=${MULE_HOME}" \
+    "-Djava.net.preferIPv4Stack=TRUE" \
+    "-Dmvel2.disable.jit=TRUE" \
+    "-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-receive-buffer-size=1048576" \
+    "-Dorg.glassfish.grizzly.nio.transport.TCPNIOTransport.max-send-buffer-size=1048576" \
+    "-XX:MetaspaceSize=256m" \
+    "-XX:MaxMetaspaceSize=256m" \
+    "-XX:+HeapDumpOnOutOfMemoryError" \
+    "-XX:+AlwaysPreTouch" \
+    "-XX:NewRatio=1" \
+    "-XX:MaxTenuringThreshold=8" \
+    "-Dorg.quartz.scheduler.skipUpdateCheck=true" \
+    "-Dmule.metadata.cache.entryTtl.minutes=10" \
+    "-Dmule.metadata.cache.expirationInterval.millis=5000" \
+    "-Dlog4j2.disable.jmx=true"
+}
+
+# Echo options, trimming trailing and multiple spaces
+echo "$(wrapper_config) $(. /opt/agent-bond-opts)" | awk '$1=$1'

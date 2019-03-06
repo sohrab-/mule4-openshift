@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	
+	<configuration-properties doc:name="Configuration properties" doc:id="236f03f1-a121-48ea-8cb6-06256d1c6f35" file="properties.yaml" />
+	
+	<!-- Run on a different listener not to affect the main API -->
+	<http:listener-config name="adminListenerConfig" doc:name="HTTP Listener config" doc:id="71992b3e-b3e0-4bc4-91bf-5fea3c153edd" >
+		<http:listener-connection host="0.0.0.0" port="8086" />
+	</http:listener-config>
+	
+	<!-- For liveness check -->
+	<flow name="healthFlow" doc:id="4ce270f7-43f2-4c5a-a2da-3d499772080e" >
+		<http:listener doc:name="Listener" doc:id="5e876664-bdfc-4ef0-b121-49d0f7852a63" config-ref="adminListenerConfig" path="/health"/>
+		<set-payload value="#[null]" mimeType="text/plain" doc:name="Empty payload" doc:id="17b084f2-793f-4a29-9dd7-29cd289333f5" />
+	</flow>
+	
+	<!-- For readiness check -->
+	<flow name="readyFlow" doc:id="a80544b0-f293-4a4e-aa56-00771ad6b7b2" >
+		<http:listener doc:name="Listener" doc:id="cb1e8bf2-6c0f-4473-bfc9-1d9369876d44" config-ref="adminListenerConfig" path="/ready"/>
+		<!-- TODO replace with an actual readiness check based on what the application does -->
+		<set-payload value="#[null]" mimeType="text/plain" doc:name="Empty payload" doc:id="cb93d0a6-2334-4f6c-a089-9669d570ac4f" />
+	</flow>
+</mule>

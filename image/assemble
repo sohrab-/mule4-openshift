@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+if [ -d ${DEPLOYMENTS_DIR}/src ]; then
+	echo "---> Moving Mule App to deployment directory..."
+	mv -v ${DEPLOYMENTS_DIR}/src/* ${MULE_HOME}/apps/
+else
+	echo "Error: Mule application not found"
+	echo "Provide application as binary input or place the application archive in ${DEPLOYMENTS_DIR}/src"
+	exit 1
+fi
+
+# Add other pre-processing steps

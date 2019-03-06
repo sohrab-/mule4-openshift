@@ -1,0 +1,139 @@
+---
+
+kind: Secret
+apiVersion: v1
+metadata:
+  name: sample-app
+  labels:
+    app: sample-app
+
+---
+
+apiVersion: v1
+kind: DeploymentConfig
+metadata:
+  name: sample-app
+  labels:
+    app: sample-app
+spec:
+  replicas: 1
+  selector:
+    app: sample-app
+    deploymentconfig: sample-app
+  strategy:
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: sample-app
+        deploymentconfig: sample-app
+    spec:
+      containers:
+      - name: sample-app
+        image: ""
+        imagePullPolicy: Always
+        ports:
+        - name: api
+          containerPort: 8085
+          protocol: TCP
+        # Let's you open 
+        - name: jolokia
+          containerPort: 8778
+          protocol: TCP
+        env:
+        - name: TZ
+          value: Australia/Sydney
+        # To include things like anypoint credentials
+        # - name: JAVA_OPTIONS
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: mule-java-options
+        #       key: JAVA_OPTIONS
+        - name: AB_JOLOKIA_AUTH_OPENSHIFT
+          value: "true"
+        resources:
+          # JVM and Mule are a bit hungry, especially during startup
+          limits:
+            memory: 750Mi
+          requests:
+            memory: 750Mi
+        volumeMounts:
+          # - name: mule-licence-volume
+          #   mountPath: /opt/mule-licence
+          #   readOnly: true
+          - name: app-properties-volume
+            mountPath: /opt/mule-app-properties
+            readOnly: true
+          # Uncomment if PV and PVC has been configured
+          # - name: volume-working-directory
+          #   mountPath: /opt/mule/.mule/
+        livenessProbe:
+          initialDelaySeconds: 20
+          httpGet:
+            path: /health
+            port: 8086
+            scheme: HTTP
+        readinessProbe:
+          initialDelaySeconds: 20
+          httpGet:
+            path: /ready
+            port: 8086
+            scheme: HTTP
+      volumes:
+        # - name: mule-licence-volume
+        #   secret:
+        #     secretName: mule-licence
+        - name: app-properties-volume
+          secret:
+            secretName: sample-app
+        # Uncomment if PV and PVC has been configured
+        # - name: working-directory-volume
+        #   persistentVolumeClaim:
+        #     claimName: sample-app-workingdir
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+  triggers:
+  - type: ImageChange
+    imageChangeParams:
+      containerNames:
+      - sample-app
+      from:
+        kind: ImageStreamTag
+        name: 'sample-app:latest'
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-app
+  labels:
+    app: sample-app
+spec:
+  type: ClusterIP
+  ports:
+  - name: api
+    port: 8085
+    protocol: TCP
+    targetPort: 8085
+  selector:
+    app: sample-app
+    deploymentconfig: sample-app
+
+---
+
+apiVersion: v1
+kind: Route
+metadata:
+  name: sample-app
+  labels:
+    app: sample-app
+spec:
+  path: /api/v1/somethings
+  port:
+    targetPort: api
+  to:
+    kind: Service
+    name: sample-app
+    weight: 100
+  wildcardPolicy: None

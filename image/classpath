@@ -1,0 +1,9 @@
+mule-licence
+mule-app-properties
+mule/conf
+mule/lib/boot/*
+mule/lib/launcher/*
+mule/lib/opt/*
+mule/lib/mule/*
+mule/lib/patches/*
+mule/lib/user/*
