@@ -29,3 +29,5 @@ oc apply -f openshift/deploy.yaml
 # Rollout deployment!
 oc rollout latest deploymentConfig/sample-app
 ```
+
+You should now be able to reach the application from its OpenShift Route.
