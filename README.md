@@ -8,7 +8,7 @@ Here you will find:
 * `image`: An OpenShift-ready Mule 4 base image
 * `sample-app`: A sample Mule 4 application to build and deploy on top of the base image
 
-Refer to the README file in each repo for more details.
+Refer to the README file in each directory for more details.
 
 Environment
 ---
@@ -16,6 +16,8 @@ Environment
 This repo has been tested with Red Hat OpenShift Container Platform 3.11.
 
 You may gain access to an instance by either signing up for [OpenShift Online](https://www.openshift.com/trial/) or running minishift as part of [Red Hat CDK](https://developers.redhat.com/products/cdk) locally.
+
+See [Red Hat CDK Guide](REDHAT_CDK.md) for tips on how to use CDK with this repo.
 
 Git Sub-module
 ---
@@ -27,7 +29,7 @@ Ensure this repo is checked out correctly as part of your clone before attemptin
 Caveat
 ---
 
-Please note that some features, usually present in production-ready images, have been stripped away in order to simplify the implementation for educational purposes. Examples include:
+Please note that some features, typically present in a production-ready image, have been stripped away in order to simplify the implementation for educational purposes. Examples include:
 
 * Pre-process application archive to 
     * Remove any sensitive information
@@ -35,3 +37,4 @@ Please note that some features, usually present in production-ready images, have
 * Enable properties encryption/decryption
 * Remove any JARs that score high in _Common Vulnerability Scoring System (CVSS)_
 * Add any common user libraries, not shipped with the runtime
+* CI/CD assets
