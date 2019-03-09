@@ -34,7 +34,7 @@ minishift start --username <red hat username> --profile mule --vm-driver xhyve -
 
 `--profile` feature is handy if you work with a few different instances of minishift.
 
-_Tip: `minishift --help` and `minishift <sub-command> --help` are a good way of finding what options are available to you._
+_Tip: `minishift --help` and `minishift <sub-command> --help` are good ways of finding what options are available to you._
 
 Use CDK
 ---
@@ -42,5 +42,5 @@ Use CDK
 The [Getting Started Guide](https://access.redhat.com/documentation/en-us/red_hat_container_development_kit/3.7/html-single/getting_started_guide/#using_cdk) has an extensive section on how to use CDK but here are some tips when working with this repo.
 
 * I tend to login as `system:admin` rather than `developer` to have unfettered access to OpenShift features during development.
-* On MacOS, `eval $(minishift oc-env)` can be used to use the correct `oc` and log into the OpenShift instance.
-* On MacOS, `eval $(minishift docker-env)` can be used to point  the Docker client to the Docker daemon running within the RHEL VM. This is particularly handy for doing `docker build` with Red Hat base images.
+* On MacOS, `eval $(minishift oc-env)` can be used to use the correct `oc` version and log into the OpenShift instance.
+* On MacOS, `eval $(minishift docker-env)` can be used to point the Docker client to the Docker daemon running within the RHEL VM. This is particularly handy for doing `docker build` with Red Hat base images.
