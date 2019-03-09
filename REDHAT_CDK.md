@@ -34,7 +34,7 @@ minishift start --username <red hat username> --profile mule --vm-driver xhyve -
 
 `--profile` feature is handy if you work with a few different instances of minishift.
 
-Tip: `minishift --help` and `minishift <sub-command> --help` are a good way of finding what options are available to you.
+_Tip: `minishift --help` and `minishift <sub-command> --help` are a good way of finding what options are available to you._
 
 Use CDK
 ---
