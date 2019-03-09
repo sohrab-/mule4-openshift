@@ -6,7 +6,7 @@ A painfully simple Mule 4 application to test the Mule 4 base image.
 Build
 ---
 
-Assuming the (Mule 4 base image)[../image] is already built:
+Assuming the (Mule 4 base image)[../image/README.md] is already built:
 
 ```shell
 # Create application archive
