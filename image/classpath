@@ -1,6 +1,5 @@
 mule-licence
 mule-app-properties
-mule-app-secrets
 mule/conf
 mule/lib/boot/commons-cli-1.2.jar
 mule/lib/boot/commons-codec-1.11.jar
