@@ -30,7 +30,8 @@ wrapper_config() {
     "-Dorg.quartz.scheduler.skipUpdateCheck=true" \
     "-Dmule.metadata.cache.entryTtl.minutes=10" \
     "-Dmule.metadata.cache.expirationInterval.millis=5000" \
-    "-Dlog4j2.disable.jmx=true"
+    "-Dlog4j2.disable.jmx=true" \
+    "-Djava.library.path=${MULE_HOME}/lib/boot"
 }
 
 # Echo options, trimming trailing and multiple spaces

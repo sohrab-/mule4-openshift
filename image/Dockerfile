@@ -1,7 +1,7 @@
 FROM registry.access.redhat.com/rhel-minimal:7.6
 
 ARG JAVA_VERSION=1.8.0
-ARG MULE_VERSION=4.1.5
+ARG MULE_VERSION=4.2.0
 ARG AGENT_BOND_VERSION=1.2.0
 
 ENV \
@@ -15,7 +15,7 @@ ENV \
   JAVA_APP_NAME=mule \
   JAVA_APP_DIR=${MULE_HOME} \
   JAVA_LIB_DIR=/opt \
-  JAVA_MAIN_CLASS=org.mule.runtime.module.launcher.MuleContainer
+  JAVA_MAIN_CLASS=org.mule.runtime.module.reboot.MuleContainerBootstrap
 
 LABEL \
   maintainer="sohrab" \
