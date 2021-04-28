@@ -14,6 +14,7 @@ ENV \
   JAVA_MAIN_CLASS=org.mule.runtime.module.reboot.MuleContainerBootstrap
 
 LABEL \
+  maintainer="sohrab" \
   name="mule4" \
   summary="Mule:Unwrapped 4 on UBI8 OpenJDK" \
   description="Source To Image (S2I) Mule:Unwrapped image for Red Hat OpenShift" \
