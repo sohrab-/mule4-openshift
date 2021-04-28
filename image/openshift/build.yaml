@@ -23,12 +23,12 @@ spec:
       from:
         kind: ImageStreamTag
         namespace: openshift
-        name: "rhel-minimal:7.6"
+        name: "openjdk-8:1.3"
   source:
     type: Binary
   output:
     to:
       kind: ImageStreamTag
-      name: "mule4:latest"
+      name: "mule4:4.3.0"
   runPolicy: Serial
   triggers: []

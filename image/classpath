@@ -1,7 +1,1 @@
-mule-licence
-mule-app-properties
-mule/conf
-mule/lib/boot/*
-mule/lib/opt/*
-mule/lib/mule/*
-mule/lib/user/*
+/opt/mule-licence:/opt/mule-app-properties:/opt/mule/conf:/opt/mule/lib/boot/*

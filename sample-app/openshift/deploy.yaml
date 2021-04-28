@@ -51,6 +51,10 @@ spec:
         #       key: JAVA_OPTIONS
         - name: AB_JOLOKIA_AUTH_OPENSHIFT
           value: "true"
+        - name: GC_MAX_METASPACE_SIZE
+          value: "256"
+        - name: GC_METASPACE_SIZE
+          value: "128"
         resources:
           # JVM and Mule are a bit hungry, especially during startup
           limits:

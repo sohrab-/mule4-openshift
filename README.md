@@ -19,13 +19,6 @@ You may gain access to an instance by either signing up for [OpenShift Online](h
 
 See [Red Hat CDK Guide](REDHAT_CDK.md) for tips on how to use CDK with this repo.
 
-Git Sub-module
----
-
-This repository brings in [`fabric8io-images/java`](https://github.com/fabric8io-images/java) repository (tag `1.5.4`) as a git sub-module at `image/fabric8-java-images`.
-
-Ensure this repo is checked out correctly as part of your clone before attempting any builds.
-
 Caveat
 ---
 
