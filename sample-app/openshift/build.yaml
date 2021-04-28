@@ -23,7 +23,7 @@ spec:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: 'mule4:latest'
+        name: 'mule4:4.3.0'
   source:
     type: Binary
   output:
